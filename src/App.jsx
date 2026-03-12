@@ -196,6 +196,7 @@ function AthleteCard(props) {
           <div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:16}}>
             <a href={"https://www.google.com/search?q="+encodeURIComponent(name+" criminal record court documents")} target="_blank" rel="noopener noreferrer" onClick={function(e){e.stopPropagation();}} style={{fontSize:12,fontFamily:"'JetBrains Mono', monospace",fontWeight:600,color:dark?"#e0e0e0":"#333",textDecoration:"none",padding:"7px 14px",border:"1px solid "+(dark?"#ffffff22":"#ccc"),borderRadius:4,background:dark?"#ffffff0a":"#f5f5f5"}}>COURT RECORDS</a>
             <a href={"https://news.google.com/search?q="+encodeURIComponent(name+" arrest charges")} target="_blank" rel="noopener noreferrer" onClick={function(e){e.stopPropagation();}} style={{fontSize:12,fontFamily:"'JetBrains Mono', monospace",fontWeight:600,color:dark?"#e0e0e0":"#333",textDecoration:"none",padding:"7px 14px",border:"1px solid "+(dark?"#ffffff22":"#ccc"),borderRadius:4,background:dark?"#ffffff0a":"#f5f5f5"}}>NEWS COVERAGE</a>
+            <a href={"https://www.google.com/search?tbm=isch&q="+encodeURIComponent(name+" "+data.sport+" athlete")} target="_blank" rel="noopener noreferrer" onClick={function(e){e.stopPropagation();}} style={{fontSize:12,fontFamily:"'JetBrains Mono', monospace",fontWeight:600,color:dark?"#e0e0e0":"#333",textDecoration:"none",padding:"7px 14px",border:"1px solid "+(dark?"#ffffff22":"#ccc"),borderRadius:4,background:dark?"#ffffff0a":"#f5f5f5"}}>SEARCH PHOTOS</a>
           </div>
           {data.status&&(<div style={{marginTop:14,padding:"8px 12px",background:dark?"#ffffff06":"#f5f5f5",borderRadius:4,fontSize:12,color:dark?"#999":"#666",fontFamily:"'JetBrains Mono', monospace"}}>{"STATUS: "+data.status}</div>)}
         </div>
@@ -280,12 +281,18 @@ export default function ProSportsCrimeTracker() {
             </div>
           )}
         </div>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12,marginBottom:20}}>
-          <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
-            {sports.map(function(sport){var active=sportFilter===sport;var c=sport==="ALL"?{text:accent,badge:darkMode?"#1c1917":"#fee2e2"}:getColor(sport,darkMode);return(<button key={sport} onClick={function(){setSportFilter(sport);}} style={{background:active?(sport==="ALL"?accent:c.badge):"transparent",color:active?"#fff":textSub,border:"1px solid "+(active?(sport==="ALL"?accent:c.text):(darkMode?"#222":"#ddd")),borderRadius:4,padding:"5px 12px",cursor:"pointer",fontFamily:"'JetBrains Mono', monospace",fontSize:11,fontWeight:600,letterSpacing:"0.5px",textTransform:"uppercase"}}>{sport}</button>);})}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:12,marginBottom:20}}>
+          <div>
+            <div style={{fontFamily:"'JetBrains Mono', monospace",fontSize:10,color:accent,letterSpacing:2,textTransform:"uppercase",marginBottom:6,fontWeight:600}}>SPORTS</div>
+            <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+              {sports.map(function(sport){var active=sportFilter===sport;var c=sport==="ALL"?{text:accent,badge:darkMode?"#1c1917":"#fee2e2"}:getColor(sport,darkMode);return(<button key={sport} onClick={function(){setSportFilter(sport);}} style={{background:active?(sport==="ALL"?accent:c.badge):"transparent",color:active?"#fff":textSub,border:"1px solid "+(active?(sport==="ALL"?accent:c.text):(darkMode?"#222":"#ddd")),borderRadius:4,padding:"5px 12px",cursor:"pointer",fontFamily:"'JetBrains Mono', monospace",fontSize:11,fontWeight:600,letterSpacing:"0.5px",textTransform:"uppercase"}}>{sport}</button>);})}
+            </div>
           </div>
-          <div style={{display:"flex",gap:4}}>
-            {[{key:"alpha",label:"A-Z"},{key:"recent",label:"RECENT"},{key:"charges",label:"MOST CHARGES"}].map(function(opt){var active=sortBy===opt.key;return(<button key={opt.key} onClick={function(){setSortBy(opt.key);}} style={{background:active?accent:"transparent",color:active?"#fff":textSub,border:"1px solid "+(active?accent:(darkMode?"#222":"#ddd")),borderRadius:4,padding:"4px 10px",cursor:"pointer",fontFamily:"'JetBrains Mono', monospace",fontSize:10,fontWeight:600,letterSpacing:"0.5px"}}>{opt.label}</button>);})}
+          <div>
+            <div style={{fontFamily:"'JetBrains Mono', monospace",fontSize:10,color:accent,letterSpacing:2,textTransform:"uppercase",marginBottom:6,fontWeight:600,textAlign:"right"}}>FILTER</div>
+            <div style={{display:"flex",gap:4}}>
+              {[{key:"alpha",label:"A-Z"},{key:"recent",label:"RECENT"},{key:"charges",label:"MOST CHARGES"}].map(function(opt){var active=sortBy===opt.key;return(<button key={opt.key} onClick={function(){setSortBy(opt.key);}} style={{background:active?accent:"transparent",color:active?"#fff":textSub,border:"1px solid "+(active?accent:(darkMode?"#222":"#ddd")),borderRadius:4,padding:"4px 10px",cursor:"pointer",fontFamily:"'JetBrains Mono', monospace",fontSize:10,fontWeight:600,letterSpacing:"0.5px"}}>{opt.label}</button>);})}
+            </div>
           </div>
         </div>
         <div style={{fontFamily:"'JetBrains Mono', monospace",fontSize:12,color:darkMode?"#444":"#bbb",marginBottom:16,letterSpacing:1}}>{filtered.length+" RESULT"+(filtered.length!==1?"S":"")+(query?(" FOR \""+query.toUpperCase()+"\""):"")}</div>
